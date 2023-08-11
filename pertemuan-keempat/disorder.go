@@ -1,9 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+// import (
+// 	"fmt"
+// 	"sync"
+// )
 
 // var wg sync.WaitGroup
 

@@ -15,18 +15,20 @@ func main() {
 	dataSatu = []string{"coba1", "coba2", "coba3"}
 	dataDua = []string{"bisa1", "bisa2", "bisa3"}
 
-	for i := 1; i <= 4; i++ {
-		wg.Add(2)
-		mtx.Lock()
-		go cetak(dataSatu, i)
-		go cetak(dataDua, i)
-		mtx.Unlock()
+	for i := 0; i < 4; i++ {
+		wg.Add(1)
+		go cetak(dataSatu, dataDua, i+1)
 	}
 
 	wg.Wait()
 }
 
-func cetak(d interface{}, num int) {
-	defer wg.Done()
+func cetak(d interface{}, e interface{}, num int) {
+	mtx.Lock()
+	defer mtx.Unlock()
+
 	fmt.Println(d, num)
+	fmt.Println(e, num)
+
+	wg.Done()
 }

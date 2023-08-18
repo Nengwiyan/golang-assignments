@@ -9,10 +9,10 @@ import (
 func StartApp() *gin.Engine {
 	router := gin.Default()
 
-	orderRouter := router.Group("/orders")
+	router.GET("/orders", controllers.GetOrders)
+	orderRouter := router.Group("/order")
 	{
 		orderRouter.POST("/", controllers.CreateOrder)
-		orderRouter.GET("/", controllers.GetOrders)
 		orderRouter.PUT("/:orderId", controllers.UpdateOrder)
 		orderRouter.DELETE("/:orderId", controllers.DeleteOrder)
 	}

@@ -86,7 +86,7 @@ func UpdateStudent(ctx *gin.Context) {
 			//menginisiasi ulang data score pada existing student
 			existingStudent.Scores[i].AssignmentTitle = newScore.AssignmentTitle
 			existingStudent.Scores[i].Description = newScore.Description
-			existingStudent.Scores[i].Scores = newScore.Scores
+			existingStudent.Scores[i].Score = newScore.Score
 
 			//menyimpan data score yang baru
 			err := tx.Save(&existingStudent.Scores[i]).Error

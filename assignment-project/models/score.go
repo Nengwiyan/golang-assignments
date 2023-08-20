@@ -6,7 +6,7 @@ type Score struct {
 	ID              uint       `gorm:"primaryKey" json:"id"`
 	AssignmentTitle string     `gorm:"not null" json:"assignment_title"`
 	Description     string     `gorm:"description"  json:"description"`
-	Scores          int        `gorm:"not null" json:"scores"`
+	Score           int        `gorm:"not null" json:"score"`
 	CreatedAt       *time.Time `json:"createdAt"`
 	UpdatedAt       *time.Time `json:"updatedAt"`
 	StudentID       uint

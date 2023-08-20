@@ -33,8 +33,6 @@ func CreateProduct(ctx *gin.Context) {
 	Product := models.Product{
 		Name:        productReq.Name,
 		Description: productReq.Description,
-		Price:       productReq.Price,
-		Stock:       productReq.Stock,
 		ImageURL:    uploadResult,
 	}
 

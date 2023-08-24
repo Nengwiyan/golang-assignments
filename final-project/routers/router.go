@@ -26,7 +26,7 @@ func StartApp() *gin.Engine {
 		productRouter.DELETE("/:uuid", middlewares.ProductAuthorization(), controllers.DeleteProduct)
 	}
 
-	variantRouter := router.Group("/variants")
+	variantRouter := router.Group("/products/variants")
 	{
 		variantRouter.GET("/", controllers.GetAllVariant)
 		variantRouter.GET("/:uuid", controllers.GetVariantByUUID)

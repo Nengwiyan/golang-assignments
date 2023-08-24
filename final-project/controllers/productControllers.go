@@ -28,26 +28,45 @@ func CreateProduct(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	fileName := helpers.RemoveExtention(ProductReq.Image.Filename)
-	uploadResult, err := helpers.UploadFile(ProductReq.Image, fileName)
-	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	Product := models.Product{}
+	if ProductReq.Image != nil {
+		fileName := helpers.RemoveExtention(ProductReq.Image.Filename)
+		uploadResult, err := helpers.UploadFile(ProductReq.Image, fileName)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		Product.ImageURL = uploadResult
+		newUUID := uuid.New()
+		Product.UUID = newUUID.String()
+		Product.AdminID = adminID
+		Product.Name = ProductReq.Name
 
-	newUUID := uuid.New()
-	Product := models.Product{
-		UUID:     newUUID.String(),
-		AdminID:  adminID,
-		Name:     ProductReq.Name,
-		ImageURL: uploadResult,
-	}
+		fileExt := filepath.Ext(ProductReq.Image.Filename)
+		newExt := strings.ToLower(fileExt)
 
-	fileExt := filepath.Ext(ProductReq.Image.Filename)
-	newExt := strings.ToLower(fileExt)
+		if newExt == ".jpg" || newExt == ".png" || newExt == ".jpeg" {
+			err := db.Debug().Create(&Product).Error
+			if err != nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"error":   "Bad request",
+					"message": err.Error(),
+				})
+				return
+			}
+			ctx.JSON(http.StatusOK, gin.H{
+				"data": Product,
+			})
+		} else {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": "Could not upload file. only file with JPG, PNG, and JPEG extention only allowed"})
+		}
 
-	if newExt == ".jpg" || newExt == ".png" || newExt == ".jpeg" {
-		err = db.Debug().Create(&Product).Error
+	} else {
+		newUUID := uuid.New()
+		Product.UUID = newUUID.String()
+		Product.AdminID = adminID
+		Product.Name = ProductReq.Name
+		err := db.Debug().Create(&Product).Error
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"error":   "Bad request",
@@ -59,8 +78,6 @@ func CreateProduct(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"data": Product,
 		})
-	} else {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Could not upload file. only file with JPG, PNG, and JPEG extention only allowed"})
 	}
 }
 

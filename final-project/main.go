@@ -5,9 +5,7 @@ import (
 	"final-project/routers"
 )
 
-var (
-	PORT = ":7070"
-)
+var PORT = ":8080"
 
 func main() {
 	database.StartDB()

@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "4972a892-66b0-4770-9d3d-a4a6aab35556",
+		"name": "Base Trade API - Neneng Wiyanti",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29110474"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "wiyan@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Wiyan",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "fitri@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Variants",
+					"item": [
+						{
+							"name": "Get All",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/products/variants/?limit=3&offset=0&search",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "3"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "search",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by UUID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/variants/:uuid",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "a6d7641d-1ebd-4586-b123-84f1042f0629"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "variant_name",
+											"value": "Anti-Fatamorgana",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "product_id",
+											"value": "82f081b0-2b2b-4d84-b8c6-e94d61dd5d8b",
+											"description": "uuid of product",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/products/variants",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"variants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pbmppQG1haWwuY29tIiwiZXhwIjoiMjAyMy0wOC0xN1QxODoyMDoyOS41MDI2MDQrMDc6MDAiLCJpZCI6MX0.Xe0d8H2Fr9nMp5_NwzHNGljK-nZyjWI0vwI_D1e0kbE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "variant_name",
+											"value": "Tes Judul",
+											"description": "string",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "8",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/products/variants/:uuid",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "eca7ba50-504d-4a7f-b583-ca9b0f0d3d80",
+											"description": "uuid of variant"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pbmppQG1haWwuY29tIiwiZXhwIjoiMjAyMy0wOC0xN1QxODoyMzo0My40MzI4MSswNzowMCIsImlkIjoxfQ.yQh8tJqeeLKNyT2sfjAc2yR-WBCv6hva9iCIlTVZhgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/products/variants/:uuid",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "eca7ba50-504d-4a7f-b583-ca9b0f0d3d80",
+											"description": "uuid of variant"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products?limit=1&offset=0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "search",
+									"value": "tes",
+									"description": "search by name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by UUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/:uuid",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Sneakers",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Neneng/Downloads/maksim-larin-NOpsC3nWTzY-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/products/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pbmppQG1haWwuY29tIiwiZXhwIjoiMjAyMy0wOC0xN1QxNToyMTozMS4wNTYyMTYrMDc6MDAiLCJpZCI6MX0.UImSF82fcca7fLPXqw5y6Hzn1AYw8z0WWisvFkzUkOA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Tes Nama Update",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/products/:uuid",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/:uuid",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "dba30c4e-5075-4364-87e8-a5b63457adc4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
